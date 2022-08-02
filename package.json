@@ -5,9 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-	"build": "esbuild index.js --bundle  --outfile=bundle.js --watch"
+    "build": "esbuild index.js --bundle  --outfile=bundle.js --watch"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "esbuild": "^0.14.51",
+    "jest": "^28.1.3",
+    "jest-environment-jsdom": "^28.1.3"
+  }
 }
