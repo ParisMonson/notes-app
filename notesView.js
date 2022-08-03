@@ -8,6 +8,7 @@ class NotesView {
     notes.forEach((note) => {
       let divEl = document.createElement("div");
       divEl.innerText = note;
+      divEl.className = "note";
       let bodyEl = document.querySelector("body");
       bodyEl.append(divEl);
     });

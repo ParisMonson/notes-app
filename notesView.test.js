@@ -35,4 +35,15 @@ describe("NotesView Test", () => {
 
     expect(document.querySelectorAll("div")[1].innerText).toBe("Test Note");
   });
+
+  it("creates 2 new div elements for notes with the class note", () => {
+    model = new NotesModel();
+    model.addItem("Test Note");
+    model.addItem("Second Test Note");
+
+    view = new NotesView(model);
+    view.displayNotes();
+
+    expect(document.getElementsByClassName("note").length).toBe(2);
+  });
 });
