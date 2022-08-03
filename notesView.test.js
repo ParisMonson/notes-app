@@ -46,4 +46,41 @@ describe("NotesView Test", () => {
 
     expect(document.getElementsByClassName("note").length).toBe(2);
   });
+  it("adds a note and displays it", () => {
+    model = new NotesModel();
+    view = new NotesView(model);
+    const inputEl = document.querySelector("#note-input");
+    inputEl.value = "My first note";
+    const buttonEl = document.querySelector("#add-button");
+    buttonEl.click();
+
+    expect(document.getElementsByClassName("note").length).toBe(1);
+    expect(document.getElementsByClassName("note")[0].innerText).toBe(
+      "My first note"
+    );
+  });
+  it("removes all note elements before each display view function", () => {
+    model = new NotesModel();
+    view = new NotesView(model);
+    const inputEl = document.querySelector("#note-input");
+    inputEl.value = "My first note";
+    const buttonEl = document.querySelector("#add-button");
+    buttonEl.click();
+
+    inputEl.value = "My second note";
+    buttonEl.click();
+
+    expect(document.getElementsByClassName("note").length).toBe(2);
+  });
+
+  it("clears the inputEl value after each click", () => {
+    model = new NotesModel();
+    view = new NotesView(model);
+    const inputEl = document.querySelector("#note-input");
+    inputEl.value = "My first note";
+    const buttonEl = document.querySelector("#add-button");
+    buttonEl.click();
+
+    expect(inputEl.value).toBe("");
+  });
 });
