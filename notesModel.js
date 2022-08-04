@@ -11,6 +11,11 @@ class NotesModel {
   reset() {
     this.notes = [];
   }
+  setNotes(notes) {
+    JSON.parse(notes).forEach((note) => {
+      this.notes.push(note);
+    });
+  }
 }
 
 module.exports = NotesModel;

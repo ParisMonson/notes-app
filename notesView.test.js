@@ -4,10 +4,16 @@
 const fs = require("fs");
 const NotesView = require("./notesView");
 const NotesModel = require("./notesModel");
+const NotesApi = require("./notesApi");
 const { hasUncaughtExceptionCaptureCallback } = require("process");
+const { default: JSDOMEnvironment } = require("jest-environment-jsdom");
+
+jest.mock("./notesApi");
+
 describe("NotesView Test", () => {
   beforeEach(() => {
     document.body.innerHTML = fs.readFileSync("./index.html");
+    NotesApi.mockClear();
   });
 
   it("initializes", () => {
@@ -82,5 +88,25 @@ describe("NotesView Test", () => {
     buttonEl.click();
 
     expect(inputEl.value).toBe("");
+  });
+  it("changes html page with notes recieved from Api", () => {
+    const model = new NotesModel();
+    const apiDbl = new NotesApi();
+
+    apiDbl.loadNotes.mockImplementation((callback) =>
+      callback(JSON.stringify(["Notes from mocked Api"]))
+    );
+
+    const view = new NotesView(model, apiDbl);
+
+    // 2. We mock the method getMove, replacing its normal implementation
+    // with a custom function (which here simply returns 'paper').
+    // mockRandomGenerator.getMove.mockImplementation(() => 'paper');
+
+    view.displayNotesFromApi();
+    const noteEls = document.getElementsByClassName("note");
+    Array.from(noteEls);
+
+    expect(noteEls.length).toBe(1);
   });
 });
