@@ -12,7 +12,7 @@ class NotesModel {
     this.notes = [];
   }
   setNotes(notes) {
-    JSON.parse(notes).forEach((note) => {
+    notes.forEach((note) => {
       this.notes.push(note);
     });
   }

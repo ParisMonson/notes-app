@@ -94,19 +94,16 @@ describe("NotesView Test", () => {
     const apiDbl = new NotesApi();
 
     apiDbl.loadNotes.mockImplementation((callback) =>
-      callback(JSON.stringify(["Notes from mocked Api"]))
+      callback(["Notes from mocked Api"])
     );
 
     const view = new NotesView(model, apiDbl);
-
-    // 2. We mock the method getMove, replacing its normal implementation
-    // with a custom function (which here simply returns 'paper').
-    // mockRandomGenerator.getMove.mockImplementation(() => 'paper');
 
     view.displayNotesFromApi();
     const noteEls = document.getElementsByClassName("note");
     Array.from(noteEls);
 
     expect(noteEls.length).toBe(1);
+    expect(noteEls[0].innerText).toBe("Notes from mocked Api");
   });
 });

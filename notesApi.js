@@ -4,7 +4,7 @@ class NotesApi {
     fetch("http://localhost:3000/notes")
       .then((response) => response.json())
       .then((data) => {
-        callback(JSON.stringify(data));
+        callback(data);
       });
   }
 }

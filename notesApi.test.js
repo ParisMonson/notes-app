@@ -12,7 +12,7 @@ describe("NotesApi", () => {
     fetch.mockResponseOnce(JSON.stringify(["A note from the Api"]));
 
     api.loadNotes((returnedData) => {
-      expect(returnedData).toBe(JSON.stringify(["A note from the Api"]));
+      expect(returnedData).toEqual(["A note from the Api"]);
     });
   });
 });
