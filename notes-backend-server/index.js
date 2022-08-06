@@ -6,7 +6,7 @@ const PORT = 3000;
 app.use(cors())
 
 let notes = [
-  'This note is coming from the server'
+  "This note is coming from the server"
 ];
 
 app.use(express.json());
@@ -16,7 +16,7 @@ app.get('/notes', (_req, res) => {
 });
 
 app.post('/notes', (req, res) => {
-  notes.push(req.body.content)
+  notes.push(req.body)
   res.send(JSON.stringify(notes));
 });
 

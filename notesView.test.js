@@ -17,44 +17,46 @@ describe("NotesView Test", () => {
   });
 
   it("initializes", () => {
-    model = new NotesModel();
-    view = new NotesView(model);
+    const model = new NotesModel();
+    const apiDbl = new NotesApi();
+    const view = new NotesView(model, apiDbl);
     expect(view).toBeDefined();
   });
 
   it("creates a new div element for a note", () => {
-    model = new NotesModel();
+    const model = new NotesModel();
     model.addItem("Test Note");
-
-    view = new NotesView(model);
+    const apiDbl = new NotesApi();
+    const view = new NotesView(model, apiDbl);
     view.displayNotes();
 
     expect(document.querySelectorAll("div").length).toBe(2);
   });
 
   it("creates a new div element for a note with the notes text inside", () => {
-    model = new NotesModel();
+    const model = new NotesModel();
     model.addItem("Test Note");
-
-    view = new NotesView(model);
+    const apiDbl = new NotesApi();
+    const view = new NotesView(model, apiDbl);
     view.displayNotes();
 
     expect(document.querySelectorAll("div")[1].innerText).toBe("Test Note");
   });
 
   it("creates 2 new div elements for notes with the class note", () => {
-    model = new NotesModel();
+    const model = new NotesModel();
     model.addItem("Test Note");
     model.addItem("Second Test Note");
-
-    view = new NotesView(model);
+    const apiDbl = new NotesApi();
+    const view = new NotesView(model, apiDbl);
     view.displayNotes();
 
     expect(document.getElementsByClassName("note").length).toBe(2);
   });
   it("adds a note and displays it", () => {
-    model = new NotesModel();
-    view = new NotesView(model);
+    const model = new NotesModel();
+    const apiDbl = new NotesApi();
+    const view = new NotesView(model, apiDbl);
     const inputEl = document.querySelector("#note-input");
     inputEl.value = "My first note";
     const buttonEl = document.querySelector("#add-button");
@@ -66,8 +68,9 @@ describe("NotesView Test", () => {
     );
   });
   it("removes all note elements before each display view function", () => {
-    model = new NotesModel();
-    view = new NotesView(model);
+    const model = new NotesModel();
+    const apiDbl = new NotesApi();
+    const view = new NotesView(model, apiDbl);
     const inputEl = document.querySelector("#note-input");
     inputEl.value = "My first note";
     const buttonEl = document.querySelector("#add-button");
@@ -80,8 +83,9 @@ describe("NotesView Test", () => {
   });
 
   it("clears the inputEl value after each click", () => {
-    model = new NotesModel();
-    view = new NotesView(model);
+    const model = new NotesModel();
+    const apiDbl = new NotesApi();
+    const view = new NotesView(model, apiDbl);
     const inputEl = document.querySelector("#note-input");
     inputEl.value = "My first note";
     const buttonEl = document.querySelector("#add-button");
@@ -105,5 +109,21 @@ describe("NotesView Test", () => {
 
     expect(noteEls.length).toBe(1);
     expect(noteEls[0].innerText).toBe("Notes from mocked Api");
+  });
+  it("sends the input note to Api backend", () => {
+    const model = new NotesModel();
+    const apiDbl = new NotesApi();
+    apiDbl.createNote.mockImplementation(() => {
+      console.log("Tests");
+    });
+
+    const view = new NotesView(model, apiDbl);
+    const inputEl = document.querySelector("#note-input");
+    inputEl.value = "NOTE";
+
+    const addButton = document.querySelector("#add-button");
+    addButton.click();
+
+    expect(apiDbl.createNote).toHaveBeenCalledTimes(1);
   });
 });

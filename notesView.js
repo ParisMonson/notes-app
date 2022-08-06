@@ -7,6 +7,10 @@ class NotesView {
     addButtonEl.addEventListener("click", () => {
       const inputEl = document.querySelector("#note-input");
       this.notesModel.addItem(inputEl.value);
+
+      this.notesApi.createNote(inputEl.value, (data) => {
+        console.log("This is callback func", data);
+      });
       inputEl.value = null;
       this.displayNotes();
     });
